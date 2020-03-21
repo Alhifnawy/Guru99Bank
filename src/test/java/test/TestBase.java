@@ -14,15 +14,15 @@ public class TestBase {
 
     @BeforeSuite
     public void startDriver() {
-        System.setProperty("webdriver.gecko.driver","src/test/resources/geckodriver.exe");
+        System.setProperty(Util.DRIVER_TYPE, Util.DRIVER_PATH);
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Util.WAIT_TIME, TimeUnit.SECONDS);
 
     }
 
     @BeforeTest
     public void goToWebsite(){
-        driver.get("http://www.demo.guru99.com/V4/");
+        driver.get(Util.BASE_URL);
     }
 
     @AfterSuite
