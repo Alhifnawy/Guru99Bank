@@ -3,8 +3,6 @@ package data;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import test.Util;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +33,7 @@ public class ExcelReader {
         XSSFWorkbook wb = new XSSFWorkbook(fis);
         XSSFSheet sheet = wb.getSheetAt(0);
 
-        int TotalNumberOfRows = 3;
+        int TotalNumberOfRows = (sheet.getLastRowNum()+1);
         int TotalNumberOfColumns = 2;
 
         String [][]arrayExcelData = new String[TotalNumberOfRows][TotalNumberOfColumns];

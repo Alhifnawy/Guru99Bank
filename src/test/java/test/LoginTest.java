@@ -1,7 +1,9 @@
 package test;
 
 import data.ExcelReader;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -31,8 +33,15 @@ public class LoginTest extends TestBase{
 
         logPage.SubmitLoginCredentials(username, Password);
 
-        Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : mng"));
-        Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : mngr251101");
-        HP.Logout();
+        try {
+            Alert alt = driver.switchTo().alert();
+            Assert.assertEquals(alt.getText().toLowerCase(),"user or password is not valid");
+            driver.switchTo().alert().accept();
+
+        } catch (NoAlertPresentException var8) {
+            Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : mng"));
+            Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : mngr251101");
+            HP.Logout();
+        }
     }
 }
