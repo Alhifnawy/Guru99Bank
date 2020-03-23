@@ -26,7 +26,7 @@ public class LoginTest extends TestBase{
     }
 
     @Test(dataProvider = "LoginData")
-    public void verifySuccessfulLogin(String username, String Password){
+    public void verifyLogin(String username, String Password){
 
         logPage = new LoginPage(driver);
         HP = new HomePage(driver);
@@ -39,9 +39,10 @@ public class LoginTest extends TestBase{
             driver.switchTo().alert().accept();
 
         } catch (NoAlertPresentException var8) {
-            Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : mng"));
-            Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : mngr251101");
+            Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : "+username));
+            Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : "+username);
             HP.Logout();
+            driver.switchTo().alert().accept();
         }
     }
 }
