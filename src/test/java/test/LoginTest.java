@@ -26,7 +26,7 @@ public class LoginTest extends TestBase{
     }
 
     @Test(dataProvider = "LoginData")
-    public void verifyLogin(String username, String Password){
+    public void verifyLogin(String username, String Password) throws IOException {
 
         logPage = new LoginPage(driver);
         HP = new HomePage(driver);
@@ -41,6 +41,7 @@ public class LoginTest extends TestBase{
         } catch (NoAlertPresentException var8) {
             Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : "+username));
             Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : "+username);
+            Util.takeScreenshot(driver,Util.ssPath);
             HP.Logout();
             driver.switchTo().alert().accept();
         }

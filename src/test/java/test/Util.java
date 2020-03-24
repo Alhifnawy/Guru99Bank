@@ -1,5 +1,13 @@
 package test;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Util {
 
     //Specify the driver to be firefox driver
@@ -13,4 +21,24 @@ public class Util {
 
     // Time to wait when searching for a GUI element
     public static final int WAIT_TIME = 30;
+
+    // Destination of the screenshot & its name
+    public static final String ssPath = "src/test/java/Screenshot/test.png";
+
+    //Method to take a screenshot
+    public static void takeScreenshot(WebDriver driver, String filePath) throws IOException {
+
+        // Convert web driver object to TakeScreenshot
+        TakesScreenshot scrShot = ((TakesScreenshot)driver);
+
+        // Call getScreenshotAs method to create image file
+        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+
+        // Move image file to new destination
+        File DestFile = new File(filePath);
+
+        // Copy file at destination
+        FileUtils.copyFile(SrcFile, DestFile);
+
+    }
 }
