@@ -9,12 +9,11 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageModel.HomePage;
 import pageModel.LoginPage;
+import pageModel.NewCustomerPage;
+
 import java.io.IOException;
 
-public class LoginTest extends TestBase{
-
-    LoginPage logPage;
-    HomePage HP;
+public class Tests extends TestBase{
 
     @DataProvider(name = "LoginData")
     public Object[][] userLoginData() throws IOException {
@@ -25,7 +24,7 @@ public class LoginTest extends TestBase{
         return ER.getExcelData();
     }
 
-    @Test(dataProvider = "LoginData")
+    @Test(priority = 1, dataProvider = "LoginData")
     public void verifyLogin(String username, String Password) throws IOException {
 
         logPage = new LoginPage(driver);
@@ -45,5 +44,14 @@ public class LoginTest extends TestBase{
             HP.Logout();
             driver.switchTo().alert().accept();
         }
+    }
+
+    @Test(priority = 2)
+    public void addCustomer(){
+        NCP = new NewCustomerPage(driver);
+        HP = new HomePage(driver);
+
+        HP.addNewCustomer();
+        NCP.addNewCustomer("Abdurahman","male","2731995","address123","Cairo","Nasr City","123456","023143242542","abc@abc.com","qwerty12345");
     }
 }

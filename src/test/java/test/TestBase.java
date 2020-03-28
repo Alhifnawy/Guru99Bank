@@ -5,12 +5,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import pageModel.HomePage;
+import pageModel.LoginPage;
+import pageModel.NewCustomerPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
     public static WebDriver driver;
+    LoginPage logPage;
+    HomePage HP;
+    NewCustomerPage NCP;
 
     @BeforeSuite
     public void startDriver() {
@@ -25,8 +31,8 @@ public class TestBase {
         driver.get(Util.BASE_URL);
     }
 
-    @AfterSuite
-    public void tearDown() {
-        driver.quit();
-    }
+//    @AfterSuite
+//    public void tearDown() {
+//        driver.quit();
+//    }
 }

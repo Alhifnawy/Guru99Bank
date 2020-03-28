@@ -10,10 +10,17 @@ public class HomePage extends pageBase{
         super(driver);
     }
 
+    @FindBy(xpath = "//a[@href='addcustomerpage.php']")
+    WebElement newCustomerBTN;
+
     @FindBy(xpath = "//a[@href='Logout.php']")
     WebElement logoutBTN;
 
     public void Logout(){
         logoutBTN.click();
+    }
+
+    public void addNewCustomer(){
+        newCustomerBTN.click();
     }
 }
