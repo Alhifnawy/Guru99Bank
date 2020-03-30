@@ -26,7 +26,7 @@ public class ExcelReader {
         return fis;
     }
 
-    public Object[][] getExcelData() throws IOException {
+    public Object[][] getLoginData() throws IOException {
 
         fis = getFileInputStream();
 

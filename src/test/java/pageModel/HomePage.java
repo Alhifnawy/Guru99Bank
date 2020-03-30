@@ -13,6 +13,12 @@ public class HomePage extends pageBase{
     @FindBy(xpath = "//a[@href='addcustomerpage.php']")
     WebElement newCustomerBTN;
 
+    @FindBy(xpath = "//a[@href='EditCustomer.php']")
+    WebElement editCustomerBTN;
+
+    @FindBy(xpath = "//a[@href='DeleteCustomerInput.php']")
+    WebElement deleteCustomerBTN;
+
     @FindBy(xpath = "//a[@href='Logout.php']")
     WebElement logoutBTN;
 
@@ -20,7 +26,15 @@ public class HomePage extends pageBase{
         logoutBTN.click();
     }
 
-    public void addNewCustomer(){
+    public void addNewCustomerBTN(){
         newCustomerBTN.click();
+    }
+
+    public void editCustomerBTN(){
+        editCustomerBTN.click();
+    }
+
+    public void deleteCustomerBTN(){
+        deleteCustomerBTN.click();
     }
 }

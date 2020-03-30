@@ -7,13 +7,12 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageModel.HomePage;
-import pageModel.LoginPage;
-import pageModel.NewCustomerPage;
 
 import java.io.IOException;
 
 public class Tests extends TestBase{
+
+    String customerID;
 
     @DataProvider(name = "LoginData")
     public Object[][] userLoginData() throws IOException {
@@ -21,14 +20,11 @@ public class Tests extends TestBase{
         //Get data from ExcelReader Class
         ExcelReader ER = new ExcelReader();
 
-        return ER.getExcelData();
+        return ER.getLoginData();
     }
 
     @Test(priority = 1, dataProvider = "LoginData")
     public void verifyLogin(String username, String Password) throws IOException {
-
-        logPage = new LoginPage(driver);
-        HP = new HomePage(driver);
 
         logPage.SubmitLoginCredentials(username, Password);
 
@@ -40,18 +36,36 @@ public class Tests extends TestBase{
         } catch (NoAlertPresentException var8) {
             Assert.assertTrue(driver.findElement(By.xpath("//td[@style='color: green']")).getText().contains("Manger Id : "+username));
             Assert.assertEquals(driver.findElement(By.xpath("//td[@style='color: green']")).getText(),"Manger Id : "+username);
-            Util.takeScreenshot(driver,Util.ssPath);
-            HP.Logout();
-            driver.switchTo().alert().accept();
         }
     }
 
     @Test(priority = 2)
     public void addCustomer(){
-        NCP = new NewCustomerPage(driver);
-        HP = new HomePage(driver);
 
-        HP.addNewCustomer();
-        NCP.addNewCustomer("Abdurahman","male","2731995","address123","Cairo","Nasr City","123456","023143242542","abc@abc.com","qwerty12345");
+        homePage.addNewCustomerBTN();
+        newCustomerPage.addNewCustomer("Abdurahman","male","273","1995","address123","Cairo","Nasr City","425244","12345678912","abcdefghiklopkm@abcd.com","sdgdf4w35");
+
+        Assert.assertEquals(driver.findElement(By.xpath("//p[@class='heading3']")).getText(),"Customer Registered Successfully!!!");
+        this.customerID = newCustomerPage.getCustomerID();
+    }
+
+    @Test(priority = 3)
+    public void editCustomer(){
+
+        homePage.editCustomerBTN();
+        editCustomerPage.enterCustomerID(this.customerID);
+        editCustomerPage.editCustomerDetails("address123","Alexandria","Kamb Shizar","425243","12345678912","abcdefghiklopkm@abcd.com");
+
+        Assert.assertEquals(driver.findElement(By.xpath("//p[@class='heading3']")).getText(),"Customer details updated Successfully!!!");
+    }
+
+    @Test(priority = 4)
+    public void deleteCustomer(){
+
+        homePage.deleteCustomerBTN();
+        deleteCustomerPage.deleteCustomer(this.customerID);
+        Alert alt = driver.switchTo().alert();
+        alt.accept();
+        alt.accept();
     }
 }

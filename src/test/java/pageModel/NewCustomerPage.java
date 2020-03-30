@@ -1,5 +1,6 @@
 package pageModel;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,7 +49,10 @@ public class NewCustomerPage extends pageBase {
     @FindBy (xpath = "//input[@type='reset']")
     WebElement resetBTN;
 
-    public void addNewCustomer(String name, String gender,String birth, String address, String city, String state, String pinNum, String mobileNum, String email, String pass){
+    @FindBy(xpath = "//td[2]")
+    WebElement customerID;
+
+    public void addNewCustomer(String name, String gender,String day_month,String year, String address, String city, String state, String pinNum, String mobileNum, String email, String pass){
 
         customerName.sendKeys(name);
         if(gender == "male"){
@@ -57,7 +61,11 @@ public class NewCustomerPage extends pageBase {
         else{
             female.click();
         }
-        date.sendKeys(birth);
+        // Send day,month then press TAB in keyboard & then send the year
+        date.sendKeys(day_month);
+        date.sendKeys(Keys.TAB);
+        date.sendKeys(year);
+
         this.address.sendKeys(address);
         this.city.sendKeys(city);
         this.state.sendKeys(state);
@@ -68,4 +76,9 @@ public class NewCustomerPage extends pageBase {
         submitBTN.click();
     }
 
+    public String getCustomerID(){
+        String ID = customerID.getText();
+
+        return ID;
+    }
 }

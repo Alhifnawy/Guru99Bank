@@ -7,14 +7,15 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class Util {
 
     //Specify the driver to be firefox driver
-    public static final String DRIVER_TYPE = "webdriver.gecko.driver";
+    public static final String DRIVER_TYPE = "webdriver.chrome.driver";
 
     //Specify the firefox driver location
-    public static final String DRIVER_PATH = "src/test/resources/geckodriver.exe";
+    public static final String DRIVER_PATH = "src/test/resources/chromedriver.exe";
 
     // Setting Base URL
     public static final String BASE_URL = "http://www.demo.guru99.com/V4/";
@@ -22,11 +23,19 @@ public class Util {
     // Time to wait when searching for a GUI element
     public static final int WAIT_TIME = 30;
 
+
+
     // Destination of the screenshot & its name
-    public static final String ssPath = "src/test/java/Screenshot/test.png";
+    public static String ssPath;
 
     //Method to take a screenshot
     public static void takeScreenshot(WebDriver driver, String filePath) throws IOException {
+
+        // Create object to take the exact date and time of the screenshot
+        Date d = new Date();
+
+        // Define the screenshot location, replace any ":" with "-" & replace any " " with "_" to be formatted correctly
+        ssPath = "src/test/java/Screenshot/"+"screenshot_" + d.toString().replace(":", "-").replace(" ", "_") + ".png";
 
         // Convert web driver object to TakeScreenshot
         TakesScreenshot scrShot = ((TakesScreenshot)driver);
