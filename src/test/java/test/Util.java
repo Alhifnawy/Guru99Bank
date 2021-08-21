@@ -12,10 +12,10 @@ import java.util.Date;
 public class Util {
 
     //Specify the driver to be firefox driver
-    public static final String DRIVER_TYPE = "webdriver.chrome.driver";
-
-    //Specify the firefox driver location
-    public static final String DRIVER_PATH = "src/test/resources/chromedriver.exe";
+//    public static final String DRIVER_TYPE = "webdriver.chrome.driver";
+//
+//    //Specify the firefox driver location
+//    public static final String DRIVER_PATH = "src/test/resources/chromedriver.exe";
 
     // Setting Base URL
     public static final String BASE_URL = "http://www.demo.guru99.com/V4/";
